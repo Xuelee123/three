@@ -53,7 +53,7 @@ export default {
     reset () {
       this.$refs.loginFormRef.resetFields()
     },
-    login () {
+    login () { 
       //登录前对表单预校验 valid代表的是表单预校验的结果（布尔值），成功为true 失败为false
       this.$refs.loginFormRef.validate(async(valid) => {
         //为校验失败准备的

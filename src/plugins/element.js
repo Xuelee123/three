@@ -1,8 +1,30 @@
 import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/index.css'
-import { MenuItem,Submenu,Menu,Form, FormItem, Button, Input, Message, 
-  Container, Header, Aside, Main, Breadcrumb, BreadcrumbItem, Card, 
-  Col, Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag} from 'element-ui'
+import { MenuItem,
+  Submenu,
+  Menu,
+  Form, 
+  FormItem, 
+  Button, 
+  Input, 
+  Message, 
+  Container,
+  Header, 
+  Aside, 
+  Main,
+  Breadcrumb, 
+  BreadcrumbItem,
+  Card, 
+  Col, 
+  Row,
+  Table, 
+  TableColumn,
+  Switch, 
+  Tooltip,
+  Pagination,
+  Dialog, 
+  MessageBox,
+  Tag} from 'element-ui'
 
 Vue.use(Button)
 Vue.use(Form)
