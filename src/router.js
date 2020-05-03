@@ -5,6 +5,8 @@ import Login from './components/Login.vue'
 import Home from './components/Home.vue'
 import Welcome from './components/Welcome.vue'
 import User from './components/user/user.vue'
+import Rights from './components/power/rights.vue'
+import Roles from './components/power/roles.vue'
 const router = new vueRouter({ 
   mode: 'history',
   routes: [
@@ -16,6 +18,9 @@ const router = new vueRouter({
       {path: '/home', redirect: '/welcome'},
       {path: '/welcome',component: Welcome},
       {path: '/users',component: User},
+      {path: '/users',component: User},
+      {path: '/roles',component: Roles},
+      {path: '/rights',component: Rights},
     ]
   }
   ]
