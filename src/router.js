@@ -8,6 +8,7 @@ import User from './components/user/user.vue'
 import Rights from './components/power/rights.vue'
 import Roles from './components/power/roles.vue'
 import Categories from './components/goods/Categories.vue'
+import Params from './components/goods/Params.vue'
 const router = new vueRouter({ 
   mode: 'history',
   routes: [
@@ -23,6 +24,7 @@ const router = new vueRouter({
       {path: '/roles',component: Roles},
       {path: '/rights',component: Rights},
       {path: '/categories',component: Categories},
+      {path: '/params',component: Params},
     ]
   }
   ]
