@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/index.css'
-import { MenuItem,
+import Timeline from './timeline/index.js'
+
+
+import TimelineItem from  './timeline-item/index.js'
+
+import { 
+  MenuItem,
   Submenu,
   Menu,
   Form, 
@@ -30,7 +36,14 @@ import { MenuItem,
   Option,
   Cascader,
   Tabs,
-  TabPane
+  TabPane,
+  Alert,
+  Steps,
+  Step,
+  CheckboxGroup,
+  Checkbox,
+  Upload,
+
 } from 'element-ui'
 
 Vue.use(Button)
@@ -62,6 +75,15 @@ Vue.use(Option)
 Vue.use(Cascader)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Alert)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Upload)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
+
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

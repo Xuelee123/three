@@ -9,13 +9,16 @@ import Rights from './components/power/rights.vue'
 import Roles from './components/power/roles.vue'
 import Categories from './components/goods/Categories.vue'
 import Params from './components/goods/Params.vue'
+import List from './components/goods/List.vue'
+import addGoods from './components/goods/addGoods.vue'
+import Order from './components/order/order.vue'
+import Report from './components/report/report.vue'
 const router = new vueRouter({ 
   mode: 'history',
   routes: [
     {path: '/', redirect: '/login'},
     {path: '/login', component: Login},
     {path: '/home', component: Home,
-    redirect: '/welcome',
     children:[
       {path: '/home', redirect: '/welcome'},
       {path: '/welcome',component: Welcome},
@@ -25,6 +28,10 @@ const router = new vueRouter({
       {path: '/rights',component: Rights},
       {path: '/categories',component: Categories},
       {path: '/params',component: Params},
+      {path: '/goods',component: List},
+      {path: '/addGoods',component: addGoods},
+      {path: '/orders',component: Order},
+      {path: '/reports',component: Report},
     ]
   }
   ]

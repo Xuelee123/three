@@ -24,7 +24,7 @@
           v-model="selectedKeys" 
           @change="handleChanged" 
           clearable 
-          change-on-select>
+          >
           </el-cascader>
         </el-col>
       </el-row>
