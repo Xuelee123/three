@@ -17,7 +17,7 @@
           <!-- 选择商品分类的级联选择框 -->
            <!-- options 用来指定数据源 -->
           <!-- props 用来指定配置对象 -->
-          <el-cascader 
+          <!-- <el-cascader 
           expand-trigger="hover" 
           :options="catelist" 
           :props="cateProps" 
@@ -25,7 +25,11 @@
           @change="handleChanged" 
           clearable 
           >
-          </el-cascader>
+          </el-cascader> -->
+           <el-select multiple collapse-tags v-model='selectedArray' @change='changeSelect' placeholder='请选择吧'>
+            <el-checkbox v-model="checked" @change='selectAll'>全选</el-checkbox>
+            <el-option v-for='(item, index) in options' :key='index' :label='item.label' :value='item.name'></el-option>
+          </el-select>
         </el-col>
       </el-row>
       <!-- tab页面区 -->
@@ -140,6 +144,14 @@
 export default {
   data(){
     return {
+        selectedArray: [],
+       options: [
+        { name: '一一', label: 'one' },
+        { name: '二二', label: 'tow' },
+        { name: '三三', label: 'three' },
+        { name: '四四', label: 'four' },
+        { name: '五五', label: 'five' },
+      ],
       catelist:[],
       //指定级联选择器的配置对象
       cateProps: {

@@ -183,6 +183,7 @@ export default {
       }
       //获取商品分类成功则将数据赋值给catelist
       this.catelist = data.data.result;
+      console.log(`98989898989`,data.data.result);
       //为总条数赋值
       this.total = data.data.total;
     },

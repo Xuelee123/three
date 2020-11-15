@@ -5,7 +5,7 @@
       <div class="avatar_box">
         <img  src="../assets/logo.png" alt />
       </div>
-      <!-- 登录表单区域 -->
+      <!-- 登录表单区域el-form中 :mode代表数据绑定  prop="username"为不同的表单项指定不同的验证规则-->
       <el-form :model="loginForm" ref="loginFormRef" :rules="loginFormRules" label-width="0px" class="login_form">
         <!-- 用户名 -->
         <el-form-item  prop="username">

@@ -94,7 +94,7 @@ export default {
      console.log(result);
      if(result.data.meta.status!== 200) return this.$message.error('列表获取失败')
      const {data} = result.data
-     console.log(data);
+     console.log('========',data);
      this.menuList = data
     },
     toggleButton () {

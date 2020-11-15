@@ -13,7 +13,7 @@
         <el-col :span="8">
           <div class="grid-content bg-purple">
             <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getUserList" @keyup.enter.native="getUserList">
-              <el-button slot="append" icon="el-icon-search" @click="getUserList" ></el-button>
+              <el-button slot="append"  icon="el-icon-search" @click="getUserList" ></el-button>
             </el-input>
           </div>
         </el-col>
@@ -22,15 +22,31 @@
             <el-button type="primary" @click="addDialogVisiable=true">添加用户</el-button>
           </div>
         </el-col>
+        <el-col :span="4">
+          <div class="grid-content bg-purple">
+            <el-upload
+              class="upload-demo"
+              style="display:inline"
+              action="#"
+              :file-list="[]"
+              :before-upload="eventImport"
+              :http-request="httpRequest"
+              :show-file-list="false"
+              >
+              <el-button size="small" type="primary">上传json</el-button>
+              <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+            </el-upload>
+          </div>
+        </el-col>
       </el-row>
       <!-- 用户列表区域 -->
       <el-table :data="userList" border stripe style="width: 100%">
         <!-- 索引列 -->
         <el-table-column type="index"></el-table-column>
         <!-- 第一列 -->
-        <el-table-column prop="username" label="姓名" width="100"></el-table-column>
+        <el-table-column prop="username" label="姓名666" width="100"></el-table-column>
         <!-- 第二列 -->
-        <el-table-column prop="email" label="邮箱" width="150"></el-table-column>
+        <el-table-column prop="email" label="邮箱666" width="150"></el-table-column>
         <el-table-column prop="mobile" label="电话" width="150"></el-table-column>
         <el-table-column prop="role_name" label="角色" width="150"></el-table-column>
         <!-- 状态列 -->
@@ -62,6 +78,12 @@
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
               <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(scope.row)"></el-button>
             </el-tooltip>
+             <el-button
+              type="danger"
+              @click="exportData(scope.row)"
+              icon="el-icon-document"
+              size="mini"
+            ></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,21 +99,24 @@
       ></el-pagination>
     </el-card>
     <!-- 添加用户的对话框 -->
-    <el-dialog title="添加用户" :visible.sync="addDialogVisiable" width="50%" @close="addDialogClose">
+    <el-dialog title="添加用户" :inline="true" :visible.sync="addDialogVisiable" width="50%" @close="addDialogClose">
       <!-- 内容主体区域 -->
-      <el-form :model="addForm" :rules="addFormRules" ref="addForm" label-width="100px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="addForm.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="addForm.password"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号" prop="mobile">
-          <el-input v-model="addForm.mobile"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="addForm.email"></el-input>
-        </el-form-item>
+      <div style="font-size: 20px">xxx区域:</div>
+      <el-form :model="addForm" :rules="addFormRules" :inline="true"  ref="addForm" label-width="80px">
+        <div style="margin-left:80px; border:1px dashed #000">
+            <el-form-item label="用户名" prop="username">
+              <el-input v-model="addForm.username"/>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input v-model="addForm.password"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号" prop="mobile">
+              <el-input v-model="addForm.mobile"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱333" prop="email">
+              <el-input v-model="addForm.email"></el-input>
+            </el-form-item>
+          </div>
       </el-form>
       <!-- 底部区 -->
       <span slot="footer" class="dialog-footer">
@@ -149,6 +174,7 @@
 </template>
 
 <script>
+import FileSaver from 'file-saver'
 export default {
   data() {
     //验证邮箱的规则
@@ -176,7 +202,7 @@ export default {
         //当前的 页数
         pagenum: 1,
         //当前每页显示多少条数据
-        pagesize: 2
+        pagesize: 10
       },
       addForm: {
         username: "",
@@ -234,6 +260,46 @@ export default {
     this.getUserList();
   },
   methods: {
+    async httpRequest(){
+      console.log('执行的次数', 111111111111111111)
+       const { data } = await this.$http.post("users", this.needResult);
+       console.log('返回值========', data)
+        if (data.meta.status !== 201) {
+          return this.$message.error("导入用户失败！");
+        }
+        this.$message.success("导入用户成功！");
+      // this.$emit('import')
+    },
+    // 处理函数
+    async eventImport(file) {
+      const res = await this.importData(file)
+      console.log('导入的json数据=====', typeof(res))
+      const needResult = JSON.parse(res)
+      this.needResult = needResult
+      console.log(6666666)
+      // this.httpRequest(needResult)
+      return false
+    },
+    //导入函数，返回json数据
+    async importData(data) {
+        return new Promise(
+          function(resolve, reject) {
+            const reader = new FileReader()
+            reader.readAsText(data)
+            reader.onload = function() {
+              // const str = e.target.result
+              // const jsonData = JSON.parse(decodeURIComponent(window.atob(str)))
+              resolve(this.result)
+            }
+          }
+        )
+      },
+    //导出json
+    exportData(row){
+      const data = JSON.stringify(row)
+      const blob = new Blob([data], {type: ''})
+      FileSaver.saveAs(blob, 'hahaha.json')
+    },
     // 获取用户列表的方法
     async getUserList() {
       const { data } = await this.$http.get("users", {
@@ -244,7 +310,7 @@ export default {
       this.total = data.data.total;
       // 这里讲data里的用户列表给赋值
       this.userList = data.data.users;
-      //console.log(data.data.users)
+      console.log(data.data.users)
     },
     //监听switch开关状态的改变,put是改变状态的请求
     async userStateChange(userinfo) {
@@ -264,7 +330,9 @@ export default {
     },
     //监听pageSize改变的事件
     handleSizeChange(newSize) {
-      //console.log(newSize)
+      console.log( '==================',this.queryInfo)
+      console.log( '==================85858',this.queryInfo.pagenum)
+      console.log( '==================9999999',newSize)
       this.queryInfo.pagesize = newSize;
       //重新获取一下数据
       this.getUserList();
